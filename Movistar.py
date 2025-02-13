@@ -29,10 +29,14 @@ while zzz==False:
      while z1==True:
       if acceso==True:
           print("Menu")
-          print("1. ver tu infotmacion")
+          print("0. Cerrar sesion")
+          print("1. ver tu informacion")
           print("2. Presentar una queja")
-          print("3. Ver servicios")
+          print("3. Ver y compar servicios")
           opcion1=int(input("Cual deseas hacer"))
+          if opcion1==0:
+              z1=False
+
           if opcion1==1:
                idd1=d["clientes"][f]["id"]
                con1=d["clientes"][f]["contraseña"]
@@ -55,6 +59,12 @@ while zzz==False:
               
           if opcion1==3:
               print(d["servicios"])
+              s=input("Cual servicio quieres comprar")
+              cu1=d["servicios"][s]["adquirido"]
+              d["servicios"][s]["adquirido"]=cu1+1
+              d["clientes"][a]["servicio"]=d["servicios"][s]
+              guardarJSON(d)
+
           if acceso==False:
              print("contraseña o usuario incorretco")
       
@@ -71,9 +81,14 @@ while zzz==False:
    while z1==True:
     if acceso==True:
         print("Menu")
+        print("0. cerrar sesion")
         print("1. ver tu infotmacion")
-        print("2. añadir servicios")        
-        opcion2=int(input("Cual opcion quieres hacer"))   
+        print("2. añadir servicios")    
+        print("3. añadir clientes")    
+        opcion2=int(input("Cual opcion quieres hacer"))  
+        if opcion2==0:
+            z1=False
+ 
         if opcion2==1:
               idd1=d["operador"][f]["id"]
               con1=d["operador"][f]["contraseña"]
@@ -86,11 +101,31 @@ while zzz==False:
             precio1=int(input("Cual es el precio: "))
             d["servicios"][s]={
                 "servicio":servicio1,
-                "precio":precio1
+                "precio":precio1,
+                "adquirido":0
             }
             guardarJSON(d) 
+        if opcion2==3:
+            s=len(d["clientes"])
+            print("la ID nueva es ",s)
+            d["clientes"][s]={
+             "id":s,
+             "contraseña":int(input("cual es la cpntraseña a asignar")),
+             "nombre":input("cual es el nombre de nuevo cliente"),
+             "apellidos":input("cuales son los apellidos del nuevo cliente"),
+             "direccion":input("cual es la direccion de nuevo cliente"),
+             "telefono":input("cual es el telefono de nuevo cliente"),
+             "categoria":"cliente nuevo",
+             "servicio":"",
+             "quejas":"",
+             "tiempo":"0"
+             }
+            guardarJSON(d)
+            
+            
+
               
    if acceso==False:
        print("contraseña o usuario incorretco")
    
-  
+  #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
